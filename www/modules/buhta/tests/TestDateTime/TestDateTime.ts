@@ -189,8 +189,25 @@ module BuhtaTestModule {
         test_diff_DateTime() {
             //  diff_DateTime разница между датами  в днях-месяцах-годах !!!
             var dt1 = new DateTime([2014, 4, 21, 0, 0, 0, 0]);
-            var dt2 = new DateTime([2014, 4, 20, 0, 0, 0, 0]);
-            this.areIdentical(dt1.diffDays(dt2).toString(), "1", "diff_DateTime day");
+            var dt2 = new DateTime([2013, 1, 21, 0, 0, 0, 0]);
+            this.areIdentical(dt1.diffYears(dt2).toString(), "1", "diff_DateTime year");
+            this.areIdentical(dt1.diffMonths(dt2).toString(), "15", "diff_DateTime month");
+            var dt1 = new DateTime([2014, 4, 21, 0, 0, 0, 0]);
+            var dt2 = new DateTime([2014, 4, 11, 0, 0, 0, 0]);
+            this.areIdentical(dt1.diffWeeks(dt2).toString(), "1", "diff_DateTime week");
+            this.areIdentical(dt1.diffDays(dt2).toString(), "10", "diff_DateTime day");
+            var dt1 = new DateTime([2014, 4, 20, 18, 0, 0, 0]);
+            var dt2 = new DateTime([2014, 4, 20, 8, 0, 0, 0]);
+            this.areIdentical(dt1.diffHours(dt2).toString(), "10", "diff_DateTime hour");
+            var dt1 = new DateTime([2014, 4, 20, 18, 50, 0, 0]);
+            var dt2 = new DateTime([2014, 4, 20, 18, 40, 0, 0]);
+            this.areIdentical(dt1.diffMinutes(dt2).toString(), "10", "diff_DateTime minuts");
+            var dt1 = new DateTime([2014, 4, 20, 18, 50, 30, 0]);
+            var dt2 = new DateTime([2014, 4, 20, 18, 50, 20, 0]);
+            this.areIdentical(dt1.diffSeconds(dt2).toString(), "10", "diff_DateTime seconds");
+            var dt1 = new DateTime([2014, 4, 20, 18, 50, 30, 900]);
+            var dt2 = new DateTime([2014, 4, 20, 18, 50, 30, 800]);
+            this.areIdentical(dt1.diffMilliSeconds(dt2).toString(), "100", "diff_DateTime milliseconds");
         }
 
     }

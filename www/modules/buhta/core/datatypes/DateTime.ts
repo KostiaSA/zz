@@ -210,11 +210,38 @@ class DateTime {
         return this.moment.clone().daysInMonth().toNumber();
     }
 
+    diffYears(datetime:DateTime):number {
+        return this.moment.clone().diff(datetime.moment.clone(), 'years').toNumber();
+    }
+
+    diffMonths(datetime:DateTime):number {
+        return this.moment.clone().diff(datetime.moment.clone(), 'months').toNumber();
+    }
+
+    diffWeeks(datetime:DateTime):number {
+        return this.moment.clone().diff(datetime.moment.clone(), 'weeks').toNumber();
+    }
+
     // 1 день = 24 часа
     diffDays(datetime:DateTime):number {
         return this.moment.clone().diff(datetime.moment.clone(), 'days').toNumber();
     }
 
+    diffHours(datetime:DateTime):number {
+        return this.moment.clone().diff(datetime.moment.clone(), 'hours').toNumber();
+    }
+
+    diffMinutes(datetime:DateTime):number {
+        return this.moment.clone().diff(datetime.moment.clone(), 'minutes').toNumber();
+    }
+
+    diffSeconds(datetime:DateTime):number {
+        return this.moment.clone().diff(datetime.moment.clone(), 'seconds').toNumber();
+    }
+
+    diffMilliSeconds(datetime:DateTime):number {
+        return this.moment.clone().diff(datetime.moment.clone()).toNumber();
+    }
 }
 
 
