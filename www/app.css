@@ -1,0 +1,121 @@
+﻿
+.nav.nav-tabs > li > a {
+    position: relative;
+    display: block;
+    padding: 5px 10px;
+}
+
+.zz-form-table .form-control {
+    border-color: #c5c5c5;
+}
+
+.zz-form-table td {
+    padding: 3px;
+}
+
+    /*.input-sm, .form-horizontal .form-group-sm .form-control{
+    height:25px;
+    font-size:13px;
+}*/
+
+    .zz-form-table td > .form-control {
+        height: 26px;
+        font-size: 13px;
+        padding: 6px 6px;
+    }
+
+    .zz-form-table td > .control-label {
+        margin-bottom: 0px;
+        font-size: 13px;
+    }
+
+.zz-button {
+    padding: 3px 8px;
+    font-size: 13px;
+}
+
+
+/*zz-grid begin*/
+.zz-grid > .slickgrid {
+    border-left: solid 1px #D3D3D3;
+    border-right: solid 1px #D3D3D3;
+    border-bottom: solid 1px #D3D3D3;
+}
+
+.zz-grid > .bottom-buttons {
+    margin-top: 10px;
+}
+
+.zz-grid .slick-cell,
+.zz-grid .slick-header-column {
+    font-size: 13px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.zz-grid .slick-cell,
+.zz-grid .slick-headerrow-column {
+    border-right: 1px solid #e7e7e7;
+    border-bottom-color: #e7e7e7;
+}
+
+.zz-grid .ui-state-default,
+.zz-grid .ui-widget-content .ui-state-default,
+.zz-grid .ui-widget-header .ui-state-default {
+    background: #F0F2F5;
+    color: #555;
+}
+
+.zz-grid slickgrid .slick-resizable-handle {
+    width: 5px;
+}
+
+.zz-grid .slick-cell.active {
+    border-color: rgba(176, 176, 176, 0);
+    background-color: rgba(231, 231, 231, 0.6);
+}
+
+.zz-grid .slick-row.active {
+    background-color: #F9F9F9;
+}
+
+.zz-grid .bottom-buttons .btn {
+    border-color: #A0A0A0;
+}
+
+.zz-grid .expanded {
+    font-weight: bold;
+}
+
+    .zz-grid .expanded.tree-column {
+        font-weight: bold;
+    }
+
+.zz-grid .toggle {
+    height: 12px;
+    width: 14px;
+    display: inline-block;
+}
+
+    .zz-grid .toggle.expand {
+        background: url(content/images/expand.gif) no-repeat center center;
+        cursor: pointer;
+    }
+
+    .zz-grid .toggle.collapse {
+        background: url(content/images/collapse.gif) no-repeat center center;
+        cursor: pointer;
+    }
+
+/*zz-grid end*/
+
+/*unit test --begin-- */
+.test .error {
+    color:red;
+}
+.test .good {
+    color:green;
+}
+
+/*unit test --end-- */
+
+

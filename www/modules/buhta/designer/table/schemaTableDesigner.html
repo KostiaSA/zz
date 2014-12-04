@@ -1,0 +1,106 @@
+﻿<div fit-height class="schema-table-designer" style="heightXXX:100%">
+    <div fit-height class="panel panel-yellow">
+        <div class="panel-heading clearfix">
+            <span class="mts pull-left">Дизайнер таблицы: {{table.name}} </span>
+            <div class="toolbars">
+                <div class="btn-group">
+                    <button type="button" data-toggle="dropdown" class="btn btn-white btn-sm dropdown-toggle">
+                        <i class="fa fa-cogs"></i>&nbsp;
+                        Setting
+                        &nbsp;<span class="caret"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div fit-height class="panel-body" style="background-color:#f0f2f5">
+            <div style="padding:10px;float:right">
+                <zz-button class="btn-outlined " ng-click="applay()" data-options="iconCls:'icon16-save'">Применить</zz-button>
+                <zz-button class="btn-green btn-outlined" ng-click="save()" data-options="iconCls:'icon16-save-and-close'">Сохранить</zz-button>
+                <zz-button class="btn-red btn-outlined" ng-click="close()" data-options="iconCls:'icon16-close'">Закрыть</zz-button>
+            </div>
+            <div style="padding:10px">
+                <zz-form style="border:solid 0px red">
+                    <div id="xxx">
+                        <label class="control-label text-blue">Имя</label>
+                        <input type="text" name="text" ng-model="table.name" class="form-control required" style="width:200px">
+                    </div>
+                    <div id="xxx2">
+                        <label for="" class="control-label text-blue">Название</label>
+                        <input type="text" name="text" class="form-control required " style="width:400px">
+                    </div>
+                </zz-form>
+                <!--<div>{{table.columns.length}}</div>
+                <div ng-repeat="colx in table.columnsNg">
+                    {{colx.ng.toString()}}
+                    <span>xxxxxxx:{{colx.ng.toString()}}</span>
+                </div>-->
+            </div>
+            <div fit-height style="border:solid 0px red;">
+                <zz-tabset fit-height>
+                    <zz-tab title="Колонки">
+                        <zz-grid fit-height data="table.columns" style="width:100%; position:relative;margin-bottom:5px">
+                            <column title="Имя колонки" field="name" style="color:blue;font-size:10px" width="200"></column>
+                            <column title="Тип данных" field="dataType" style="color:green;" eval="return row.dataType.name;"></column>
+                            <column title="Имя колонки2" field="name" width="200"></column>
+                            <column title="Тип данных2" eval="return row.dataType.nameEx;"></column>
+                        </zz-grid>
+                        <!--<div class="" style="float:right">
+                            <button type="button" class="btn btn-default btn-outlined btn-xs">вверх</button>
+                            <button type="button" class="btn btn-default btn-outlined btn-xs">вниз</button>
+                            <button type="button" class="btn btn-default btn-outlined btn-xs">фильтр</button>
+                        </div>
+                        <div class="" style="text-wrap:none">
+                            <button type="button" class="btn btn-default btn-outlined btn-xs" style="border-color:#A0A0A0;">
+                                <i style="color: #488C6C;" class="fa fa-plus"></i>
+                                Новая колонка
+                            </button>&nbsp;
+                            <button type="button" class="btn btn-default btn-outlined btn-xs" style="border-color:#A0A0A0;">
+                                <i class="fa fa-edit" style="color: #0A819C;"></i>
+                                Изм
+                            </button>
+                            <button type="button" class="btn btn-default btn-outlined btn-xs" style="border-color:#A0A0A0;">
+                                <i class="fa fa-times" style="color: #E74C3C;"></i>
+                                Удал
+                            </button>
+                        </div>-->
+                    </zz-tab>
+                    <zz-tab title="Индексы">
+                        цццццццц
+                    </zz-tab>
+                </zz-tabset>
+            </div>
+        </div>
+    </div>
+    <!--<div style="border-bottom:solid 2px rgba(233, 102, 44, 0.6);">
+        <h4>
+            Дизайнер таблицы:&nbsp;<strong>{{Table.name}}</strong>
+            <div style="position: relative;float:right;">
+                <zz-button class="btn-outlined " ng-click="applay()" data-options="iconCls:'icon16-save'">Применить</zz-button>
+                <zz-button class="btn-green btn-outlined" ng-click="save()" data-options="iconCls:'icon16-save-and-close'">Сохранить</zz-button>
+                <zz-button class="btn-red btn-outlined" ng-click="close()" data-options="iconCls:'icon16-close'">Закрыть</zz-button>
+            </div>
+        </h4>
+    </div>
+    <div style="padding:10px">
+        <zz-form style="border:solid 0px red">
+            <div id="xxx">
+                <label class="control-label text-blue">Номер</label>
+                <input type="text" name="text" class="form-control required" style="width:200px">
+            </div>
+            <div id="xxx2">
+                <label for="" class="control-label text-blue">Название</label>
+                <input type="text" name="text" class="form-control required " style="width:400px">
+            </div>
+        </zz-form>
+    </div>
+    <div fit-height style="border:solid 0px red;">
+        <zz-tabset fit-height>
+            <zz-tab title="Колонки">
+                ццццццц
+            </zz-tab>
+            <zz-tab title="Индексы">
+                цццццццц
+            </zz-tab>
+        </zz-tabset>
+    </div>-->
+</div>

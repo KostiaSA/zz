@@ -1,0 +1,23 @@
+﻿<div style="height:100%">
+    <div>привет grid!</div>
+    <div>привет grid!</div>
+    <div>привет grid!000000000</div>
+    <div>привет grid!</div>
+    <div>привет grid!</div>
+    <div>привет grid!---------------------------</div>
+    <zz-grid fit-height style="width:100%; position:relative;margin-bottom:5px" key-field="Ключ" parent-field="Parent">
+        <column field="Номер" style="color:red;font-size:18px" width="200"></column>
+        <column field="Название"  width="500"></column>
+        <column field="Ключ" style="color:blue" width="100"></column>
+        <column field="Parent" width="100"></column>
+        <column field="__level__" width="100"></column>
+        <column title="xxx" eval="return row['Номер']+'--'+row['Название'];" width="100" ></column>
+        <column title="ннн" field="yyy"></column>
+        <!--<zz-column title="Имя колонки2" field="name" width="200"></zz-column>
+        <column title="Номер" field="Номер" style="color:green;" eval="return row['Дата']+'--'+row['Дебет'];"></column>
+        <zz-column title="Тип данных2" eval="return row.dataType.nameEx;"></zz-column>-->
+        <sql>
+            select *, 'жоппа' yyy from _ВидТовара order by Номер;
+        </sql>
+    </zz-grid>
+</div>
