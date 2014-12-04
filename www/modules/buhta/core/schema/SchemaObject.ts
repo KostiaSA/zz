@@ -61,7 +61,7 @@ module BuhtaCore {
                 obj = eval("new " + moduleName + "." + _className + "()");
             }
             catch (err) {
-                throw "getBaseObjectFromXml(): ошибка создания объекта '"+"new " + moduleName + "." + _className + "()"+"'";
+                throw "getBaseObjectFromXml(): ошибка создания объекта '" + "new " + moduleName + "." + _className + "()" + "'";
             }
         }
 
@@ -94,6 +94,8 @@ module BuhtaCore {
                         value = new DateTime(a.value);
                     else if (propDesc.type == "Date")
                         value = new Date(a.value);
+                    else if (propDesc.type == "DateOnly")
+                        value = new DateOnly(a.value);
                     else if (propDesc.type == "Time")
                         value = new Time(a.value);
                     else if (propDesc.type == "Guid")
@@ -118,7 +120,13 @@ module BuhtaCore {
 
         if (angular.isArray(obj)) {
             xml.children().each((index, el) => {
-                (<any>obj).push(getBaseObjectFromXml($(el), objectIds, rootModuleName));
+                var tagName = $(el).prop("tagName").toLowerCase();
+                if (tagName == "string")
+                    (<any>obj).push($(el).text());
+                else if (tagName == "number")
+                    (<any>obj).push(Number($(el).text()));
+                else
+                    (<any>obj).push(getBaseObjectFromXml($(el), objectIds, rootModuleName));
             });
         }
         else {
@@ -184,10 +192,14 @@ module BuhtaCore {
                     el.attr(unCamelize(prop), this[prop].toString());
                 else if (propType == "Guid")
                     el.attr(unCamelize(prop), this[prop].toString());
-                else if (propType == "date")
-                    el.attr(unCamelize(prop), this[prop].format("yyyy-MM-dd hh:mm:ss.ff"));
+                else if (propType == "date" || propType == "Date")
+                    el.attr(unCamelize(prop), new DateTime(this[prop]).toString("YYYY-MM-DD HH:mm:ss.SS"));
                 else if (propType == "DateTime")
-                    el.attr(unCamelize(prop), this[prop].toString("yyyy-MM-dd hh:mm:ss.ff"));
+                    el.attr(unCamelize(prop), this[prop].toString("YYYY-MM-DD HH:mm:ss.SS"));
+                else if (propType == "DateOnly")
+                    el.attr(unCamelize(prop), this[prop].toString("YYYY-MM-DD"));
+                else if (propType == "Time")
+                    el.attr(unCamelize(prop), this[prop].toString("HH:mm:ss.SS"));
                 else if (propType == "boolean" || propType == "Boolean") {
                     if (this[prop] == true)
                         el.attr(unCamelize(prop), this[prop].toString());
@@ -195,7 +207,26 @@ module BuhtaCore {
                 else if (propType == "array" || propType == "Array") {
                     var arrayEl = $("<" + unCamelize(prop) + "/>").appendTo(el);
                     this[prop].map(function (item) {
-                        item.xmlSerialize(arrayEl, objectIds, rootModuleName);
+                        if (angular.isString(item))
+                            $("<string/>").appendTo(arrayEl).text(item.toString());
+                        else if (angular.isNumber(item))
+                            $("<number/>").appendTo(arrayEl).text(item.toString());
+                        else if (item === true)
+                            $("<boolean/>").appendTo(arrayEl).text(item.toString());
+                        else if (item === false)
+                            $("<boolean/>").appendTo(arrayEl).text(item.toString());
+                        else if (angular.isDate(item))
+                            $("<date/>").appendTo(arrayEl).text(new DateTime(item).toString("YYYY-MM-DD HH:mm:ss.SS"));
+                        else if (item.getClassName() == "Guid")
+                            $("<guid/>").appendTo(arrayEl).text(item.toString());
+                        else if (item.getClassName() == "DateTime")
+                            $("<date-time/>").appendTo(arrayEl).text(item.toString("YYYY-MM-DD HH:mm:ss.SS"));
+                        else if (item.getClassName() == "DateOnly")
+                            $("<date-only/>").appendTo(arrayEl).text(item.toString("YYYY-MM-DD"));
+                        else if (item.getClassName() == "Time")
+                            $("<time/>").appendTo(arrayEl).text(item.toString("HH:mm:ss.SS"));
+                        else
+                            item.xmlSerialize(arrayEl, objectIds, rootModuleName);
                     });
                 }
                 else

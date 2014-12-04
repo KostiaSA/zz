@@ -199,7 +199,8 @@ module BuhtaCore {
     };
 
     (<any>Date.prototype).toSql = function () {
-        return "'" + this.toISOString().replace("T", " ") + "'";
+//        return "'" + this.toISOString().replace("T", " ") + "'";
+        return new DateTime(this).toSql();
     };
 
     //$.fn.textWidth = function (text, font) {
