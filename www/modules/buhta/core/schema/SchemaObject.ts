@@ -19,18 +19,30 @@ module BuhtaCore {
 
     var ObjectsCache:{ [id: string]: SchemaObject; } = {};
 
-    export function getSchemaObject(id:string, database:string = "schema"):SchemaObject {
-        if (!ObjectsCache[id]) {
-            var ds = executeSql("SELECT Data FROM SchemaObject WHERE ID=" + id.toSql("schema"), database);
+    export function getSchemaObject(id:Guid, database:string = "schema"):SchemaObject {
+        if (!ObjectsCache[id.toString()]) {
+            var ds = executeSql("SELECT Data FROM __SchemaObject__ WHERE Id=" + id.toSql("schema"), database);
             if (ds.tables[0].rows.length == 0)
                 throw "Объект схемы '" + id + "' не найден в базе данных '" + database + "'";
 
             var newObj = <SchemaObject>getBaseObjectFromXml($(ds.tables[0].rows[0]["Data"]), []);
 
-            ObjectsCache[id] = newObj;
+            ObjectsCache[id.toString()] = newObj;
         }
-        return ObjectsCache[id];
+        return ObjectsCache[id.toString()];
     }
+    //export function getSchemaObject(id:string, database:string = "schema"):SchemaObject {
+    //    if (!ObjectsCache[id]) {
+    //        var ds = executeSql("SELECT Data FROM SchemaObject WHERE ID=" + id.toSql("schema"), database);
+    //        if (ds.tables[0].rows.length == 0)
+    //            throw "Объект схемы '" + id + "' не найден в базе данных '" + database + "'";
+    //
+    //        var newObj = <SchemaObject>getBaseObjectFromXml($(ds.tables[0].rows[0]["Data"]), []);
+    //
+    //        ObjectsCache[id] = newObj;
+    //    }
+    //    return ObjectsCache[id];
+    //}
 
     export function getBaseObjectFromXml(xml:JQuery, objectIds:Array<Object>, rootModuleName?:string, moduleName?:string, _className?:string):BaseObject {
 
@@ -189,14 +201,13 @@ module BuhtaCore {
 
             this.registerProperties();
 
-
             this["__el__"] = el;
             for (var prop in this.__properties__) {
                 if (!this[prop]) continue; // не заполнено
                 var propType = this.__properties__[prop].type;
                 if (this[prop].getClassName().toLowerCase() != propType.toLowerCase()) {
                     if (propType == "string" || propType == "String" || propType == "date" || propType == "boolean" || propType == "array" ||
-                        (this[prop] instanceof Object && !(this[prop] instanceof eval(el.attr("module") + "." + propType))))
+                        (this[prop] instanceof Object && !(this[prop] instanceof eval(this["module"] + "." + propType))))
                         throw "SchemaObject.xmlSerialize(): неверный тип значения '" + this[prop].getClassName() + "' у свойства '" + prop + "' объекта '" + (<any>this).getClassName() + "'";
                 }
                 if (propType == "string" || propType == "String")

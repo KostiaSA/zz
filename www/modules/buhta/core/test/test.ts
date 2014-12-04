@@ -112,7 +112,7 @@ module BuhtaCore {
 
     export function openTable() {
         //  alert("opentable");
-        zz("spa").spaTabset.scope["DesignedObject"] = getSchemaObject("SchemaTable.Проводка");
+        zz("spa").spaTabset.scope["DesignedObject"] = getSchemaObject(new Guid("af8a7de6-48f9-4da9-b4d4-7a48dcd64835"));
         zz("spa").spaTabset.addTab("Таблица: ТМЦ", "<div style='height:100%'><schema-table-designer></schema-table-designer></div>", "table123");
     }
 
