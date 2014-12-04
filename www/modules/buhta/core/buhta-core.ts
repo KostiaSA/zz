@@ -7,7 +7,7 @@
 /// <reference path="datatypes/Time.ts" />
 
 /// <reference path="schema/SchemaObject.ts" />
-/// <reference path="schema/SchemaTable.ts" />
+/// <reference path="schema/table/SchemaTable.ts" />
 /// <reference path="schema/SchemaStore.ts" />
 
 /// <reference path="sql/Sql.ts" />

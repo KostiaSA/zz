@@ -70,7 +70,6 @@ module BuhtaTestModule {
             o.timeProp = new Time();
             o.dateOnlyProp = new DateOnly();
 
-//            o.arrayOfStringsProp = ["123", "456", "走进黄河之都 广汽吉奥人文之旅兰州站花絮篇+1234567890='Бухта'-ООО\"[]{}()"];
             o.arrayOfStringsProp = ["123", "456", o.stringProp];
             o.arrayOfNumbersProp = [123, 456, 89.876];
             o.arrayOfBooleansProp = [true, false, true];

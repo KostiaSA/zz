@@ -194,8 +194,11 @@ module BuhtaCore {
             for (var prop in this.__properties__) {
                 if (!this[prop]) continue; // не заполнено
                 var propType = this.__properties__[prop].type;
-                if (this[prop].getClassName().toLowerCase() != propType.toLowerCase())
-                    throw "SchemaObject.xmlSerialize(): неверный тип значения '" + this[prop].getClassName() + "' у свойства '" + prop + "' объекта '" + (<any>this).getClassName() + "'";
+                if (this[prop].getClassName().toLowerCase() != propType.toLowerCase()) {
+                    if (propType == "string" || propType == "String" || propType == "date" || propType == "boolean" || propType == "array" ||
+                        (this[prop] instanceof Object && !(this[prop] instanceof eval(el.attr("module") + "." + propType))))
+                        throw "SchemaObject.xmlSerialize(): неверный тип значения '" + this[prop].getClassName() + "' у свойства '" + prop + "' объекта '" + (<any>this).getClassName() + "'";
+                }
                 if (propType == "string" || propType == "String")
                     el.attr(unCamelize(prop), this[prop].toString());
                 else if (propType == "number" || propType == "Number")
@@ -218,7 +221,7 @@ module BuhtaCore {
                     var arrayEl = $("<" + unCamelize(prop) + "/>").appendTo(el);
                     this[prop].map(function (item) {
                         if (angular.isString(item))
-                            $("<string/>").appendTo(arrayEl).attr("value",item.toString());
+                            $("<string/>").appendTo(arrayEl).attr("value", item.toString());
                         else if (angular.isNumber(item))
                             $("<number/>").appendTo(arrayEl).text(item.toString());
                         else if (angular.isArray(item))
