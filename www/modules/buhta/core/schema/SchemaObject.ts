@@ -176,7 +176,7 @@ module BuhtaCore {
             for (var prop in this.__properties__) {
                 if (!this[prop]) continue; // не заполнено
                 var propType = this.__properties__[prop].type;
-                if (this[prop].getClassName() != propType)
+                if (this[prop].getClassName().toLowerCase() != propType.toLowerCase())
                     throw "SchemaObject.xmlSerialize(): неверный тип значения '" + this[prop].getClassName() + "' у свойства '" + prop + "' объекта '" + (<any>this).getClassName() + "'";
                 if (propType == "string" || propType == "String")
                     el.attr(unCamelize(prop), this[prop].toString());
@@ -189,7 +189,7 @@ module BuhtaCore {
                 else if (propType == "DateTime")
                     el.attr(unCamelize(prop), this[prop].toString("yyyy-MM-dd hh:mm:ss.ff"));
                 else if (propType == "boolean" || propType == "Boolean") {
-                    if (this[prop] == "true")
+                    if (this[prop] == true)
                         el.attr(unCamelize(prop), this[prop].toString());
                 }
                 else if (propType == "array" || propType == "Array") {
