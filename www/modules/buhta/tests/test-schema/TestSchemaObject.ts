@@ -21,7 +21,7 @@ module BuhtaTestModule {
         arrayOfStringsProp:string[];
         arrayOfNumbersProp:number[];
         arrayOfBooleansProp:boolean[];
-        arrayOfDatesProp:Date[];
+        arrayOfDatesProp:any[];
         arrayOfDateTimesProp:DateTime[];
         arrayOfDateOnlysProp:DateOnly[];
         arrayOfTimesProp:Time[];
@@ -60,7 +60,7 @@ module BuhtaTestModule {
 
             var o = new TestSchemaObject();
 
-            o.stringProp = "走进黄河之都 广汽吉奥人文之旅兰州站花絮篇+1234567890\n='Бухта'-ООО\"[]{}()<>";
+            o.stringProp = "  走进黄河之都 广汽吉奥人文之   旅兰州站花絮篇+1234567890\n='Бухта'-ООО\"[]{}()<>    ";
             o.numberMaxProp = Number.MAX_VALUE;
             o.numberMinProp = Number.MIN_VALUE;
             o.booleanProp = true;
@@ -70,10 +70,14 @@ module BuhtaTestModule {
             o.timeProp = new Time();
             o.dateOnlyProp = new DateOnly();
 
-            o.arrayOfStringsProp = ["123", "456"];
+//            o.arrayOfStringsProp = ["123", "456", "走进黄河之都 广汽吉奥人文之旅兰州站花絮篇+1234567890='Бухта'-ООО\"[]{}()"];
+            o.arrayOfStringsProp = ["123", "456", o.stringProp];
             o.arrayOfNumbersProp = [123, 456, 89.876];
             o.arrayOfBooleansProp = [true, false, true];
-            o.arrayOfDatesProp = [new Date(), new Date("2014-11-11 13:56")];
+            o.arrayOfDatesProp = [Date(), Date.parse("2014-11-11 13:56")];
+            o.arrayOfDateTimesProp = [new DateTime(), new DateTime("2014-11-11 13:56:08")];
+            o.arrayOfTimesProp = [new Time(), new Time("13:56:08")];
+            o.arrayOfDateOnlysProp = [new DateOnly(), new DateOnly("2014-11-27")];
 
             var xml = o.toXML();
             console.log(xml);
@@ -93,6 +97,14 @@ module BuhtaTestModule {
             this.areCollectionsIdentical(o.arrayOfBooleansProp, n.arrayOfBooleansProp, "arrayOfBooleansProp");
             this.areCollectionsIdentical(o.arrayOfDatesProp, n.arrayOfDatesProp, "arrayOfDatesProp");
 
+            this.areIdentical(o.arrayOfDateTimesProp[0].toSql(), n.arrayOfDateTimesProp[0].toSql(), "arrayOfDateTimesProp-0");
+            this.areIdentical(o.arrayOfDateTimesProp[1].toSql(), n.arrayOfDateTimesProp[1].toSql(), "arrayOfDateTimesProp-1");
+
+            this.areIdentical(o.arrayOfTimesProp[0].toSql(), n.arrayOfTimesProp[0].toSql(), "arrayOfTimesProp-0");
+            this.areIdentical(o.arrayOfTimesProp[1].toSql(), n.arrayOfTimesProp[1].toSql(), "arrayOfTimesProp-1");
+
+            this.areIdentical(o.arrayOfDateOnlysProp[0].toSql(), n.arrayOfDateOnlysProp[0].toSql(), "arrayOfDateOnlysProp-0");
+            this.areIdentical(o.arrayOfDateOnlysProp[1].toSql(), n.arrayOfDateOnlysProp[1].toSql(), "arrayOfDateOnlysProp-1");
         }
     }
 

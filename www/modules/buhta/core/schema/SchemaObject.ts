@@ -122,9 +122,19 @@ module BuhtaCore {
             xml.children().each((index, el) => {
                 var tagName = $(el).prop("tagName").toLowerCase();
                 if (tagName == "string")
-                    (<any>obj).push($(el).text());
+                    (<any>obj).push($(el).attr("value"));
                 else if (tagName == "number")
                     (<any>obj).push(Number($(el).text()));
+                else if (tagName == "boolean")
+                    (<any>obj).push($(el).text() == "true");
+                else if (tagName == "date")
+                    (<any>obj).push(Date.parse($(el).text()));
+                else if (tagName == "date-time")
+                    (<any>obj).push(new DateTime($(el).text()));
+                else if (tagName == "time")
+                    (<any>obj).push(new Time($(el).text()));
+                else if (tagName == "date-only")
+                    (<any>obj).push(new DateOnly($(el).text()));
                 else
                     (<any>obj).push(getBaseObjectFromXml($(el), objectIds, rootModuleName));
             });
@@ -208,9 +218,11 @@ module BuhtaCore {
                     var arrayEl = $("<" + unCamelize(prop) + "/>").appendTo(el);
                     this[prop].map(function (item) {
                         if (angular.isString(item))
-                            $("<string/>").appendTo(arrayEl).text(item.toString());
+                            $("<string/>").appendTo(arrayEl).attr("value",item.toString());
                         else if (angular.isNumber(item))
                             $("<number/>").appendTo(arrayEl).text(item.toString());
+                        else if (angular.isArray(item))
+                            throw "xmlSerialize(): сериализация свойства '" + prop + "' -> не допускается массив в массиве.";
                         else if (item === true)
                             $("<boolean/>").appendTo(arrayEl).text(item.toString());
                         else if (item === false)
