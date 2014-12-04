@@ -56,8 +56,14 @@ module BuhtaCore {
         var obj:any;
         if (_className == "array")
             obj = [];
-        else
-            obj = eval("new " + moduleName + "." + _className + "()");
+        else {
+            try {
+                obj = eval("new " + moduleName + "." + _className + "()");
+            }
+            catch (err) {
+                throw "getBaseObjectFromXml(): ошибка создания объекта '"+"new " + moduleName + "." + _className + "()"+"'";
+            }
+        }
 
         if (obj.registerProperties) {
             obj.registerProperties();
@@ -78,9 +84,9 @@ module BuhtaCore {
                     if (!propDesc)
                         throw "свойство '" + propName + "' не зарегистрировано у объекта '" + (<any>obj).getClassName() + "'";
                     var value:any;
-                    if (propDesc.type == "string")
+                    if (propDesc.type == "string" || propDesc.type == "String")
                         value = a.value;
-                    else if (propDesc.type == "number")
+                    else if (propDesc.type == "number" || propDesc.type == "Number")
                         value = Number(a.value);
                     else if (propDesc.type == "date")
                         value = Date.parse(a.value);
@@ -92,9 +98,9 @@ module BuhtaCore {
                         value = new Time(a.value);
                     else if (propDesc.type == "Guid")
                         value = new Guid(a.value);
-                    else if (propDesc.type == "boolean")
+                    else if (propDesc.type == "boolean" || propDesc.type == "Boolean")
                         value = a.value == "true";
-                    else if (propDesc.type == "array") {
+                    else if (propDesc.type == "array" || propDesc.type == "Array") {
                         throw "свойство '" + propName + "': массив недопустим в аттрибутах"
                     }
                     else {
@@ -159,7 +165,7 @@ module BuhtaCore {
                 el.attr("module", rootModuleName)
             }
             else {
-                if (rootModuleName != this["module"])  // модуль пишем, если только он отличается от корневого
+                if (rootModuleName != this["module"])  // модуль пишем, если только он отличается от корневого.
                     el.attr("module", this["module"])
             }
 
@@ -172,9 +178,9 @@ module BuhtaCore {
                 var propType = this.__properties__[prop].type;
                 if (this[prop].getClassName() != propType)
                     throw "SchemaObject.xmlSerialize(): неверный тип значения '" + this[prop].getClassName() + "' у свойства '" + prop + "' объекта '" + (<any>this).getClassName() + "'";
-                if (propType == "string")
+                if (propType == "string" || propType == "String")
                     el.attr(unCamelize(prop), this[prop].toString());
-                else if (propType == "number")
+                else if (propType == "number" || propType == "Number")
                     el.attr(unCamelize(prop), this[prop].toString());
                 else if (propType == "Guid")
                     el.attr(unCamelize(prop), this[prop].toString());
@@ -182,11 +188,11 @@ module BuhtaCore {
                     el.attr(unCamelize(prop), this[prop].format("yyyy-MM-dd hh:mm:ss.ff"));
                 else if (propType == "DateTime")
                     el.attr(unCamelize(prop), this[prop].toString("yyyy-MM-dd hh:mm:ss.ff"));
-                else if (propType == "boolean") {
+                else if (propType == "boolean" || propType == "Boolean") {
                     if (this[prop] == "true")
                         el.attr(unCamelize(prop), this[prop].toString());
                 }
-                else if (propType == "array") {
+                else if (propType == "array" || propType == "Array") {
                     var arrayEl = $("<" + unCamelize(prop) + "/>").appendTo(el);
                     this[prop].map(function (item) {
                         item.xmlSerialize(arrayEl, objectIds, rootModuleName);
@@ -202,6 +208,9 @@ module BuhtaCore {
                     }
                     else {
                         // объект inline
+                        if (!(this[prop].xmlSerialize))
+                            throw "SchemaObject.xmlSerialize(): объект '" + this[prop].getClassName() + "' не поддерживает сериализацию в XML (метод xmlSerialize)";
+
                         this[prop].xmlSerialize(el, objectIds, rootModuleName, prop);
                     }
                 }

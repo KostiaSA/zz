@@ -27,6 +27,9 @@ module BuhtaTest {
 
 
     export function execute() {
+
+        //new BuhtaTestModule.TestSchemaObjectGroup().test_save_restore_to_xml();
+
         var test = new tsUnit.Test(BuhtaTestModule);
 
         $("body").css("background-color", "white");
