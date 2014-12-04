@@ -91,7 +91,7 @@ module BuhtaCore {
                     sql.clear();
                 }
             }
-            //console.log(sql.toString());
+            //console.log(sql.toString() );
             executeSql(sql.toString(), this.database);
         }
     }
