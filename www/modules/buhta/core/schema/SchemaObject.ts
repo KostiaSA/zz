@@ -32,7 +32,7 @@ module BuhtaCore {
         return ObjectsCache[id];
     }
 
-    function getBaseObjectFromXml(xml:JQuery, objectIds:Array<Object>, rootModuleName?:string, moduleName?:string, _className?:string):BaseObject {
+    export function getBaseObjectFromXml(xml:JQuery, objectIds:Array<Object>, rootModuleName?:string, moduleName?:string, _className?:string):BaseObject {
 
         if (!rootModuleName) {
             rootModuleName = xml.attr("module");
@@ -84,6 +84,14 @@ module BuhtaCore {
                         value = Number(a.value);
                     else if (propDesc.type == "date")
                         value = Date.parse(a.value);
+                    else if (propDesc.type == "DateTime")
+                        value = new DateTime(a.value);
+                    else if (propDesc.type == "Date")
+                        value = new Date(a.value);
+                    else if (propDesc.type == "Time")
+                        value = new Time(a.value);
+                    else if (propDesc.type == "Guid")
+                        value = new Guid(a.value);
                     else if (propDesc.type == "boolean")
                         value = a.value == "true";
                     else if (propDesc.type == "array") {

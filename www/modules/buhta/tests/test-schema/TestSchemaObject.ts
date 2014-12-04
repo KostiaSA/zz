@@ -1,0 +1,38 @@
+/**
+ * Created by Kostia on 04.12.2014.
+ */
+/// <reference path="../tsUnit.ts" />
+/// <reference path="../../core/buhta-core.d.ts" />
+
+module BuhtaTestModule {
+
+    class TestSchemaObject extends BuhtaCore.SchemaObject{
+
+        stringProp:string;
+        arrayOfStringsProp:string[];
+        arrayOfGuidsProp:Guid[];
+
+        registerProperties() {
+            super.registerProperties();
+            this.registerProperty("stringProp", "array");
+            this.registerProperty("arrayOfStringsProp", "array");
+            this.registerProperty("arrayOfGuidsProp", "array");
+        }
+
+    }
+
+    export class TestSchemaObjectGroup extends tsUnit.TestClass {
+
+        test_save_restore_to_xml() {
+
+            //var o=new TestSchemaObject();
+            //o.stringProp="走进黄河之都 广汽吉奥人文之旅兰州站花絮篇+1234567890\n='Бухта'-ООО\"[]{}()<>";
+            //var xml=o.toXML();
+            //console.log(xml);
+            //var n = <TestSchemaObject>BuhtaCore.getBaseObjectFromXml(xml, []);
+            //this.areIdentical(o.stringProp, n.stringProp,"stringProp");
+
+        }
+    }
+
+}

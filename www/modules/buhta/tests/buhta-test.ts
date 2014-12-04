@@ -5,6 +5,7 @@
 /// <reference path="testdatetime/testdatetime.ts" />
 /// <reference path="testsql/testMsSql.ts" />
 /// <reference path="testsql/testPgSql.ts" />
+/// <reference path="test-schema/TestSchemaObject.ts" />
 
 module BuhtaTest {
 
@@ -12,6 +13,7 @@ module BuhtaTest {
         isTestsGroupActive(groupName: string): boolean {
             //if (groupName == "MsSqlTest1")
             //if (groupName == "TestDateTimeGroup")
+            //if (groupName == "TestSchemaObjectGroup")
                 return true;
         }
         isTestActive(testName: string): boolean {
