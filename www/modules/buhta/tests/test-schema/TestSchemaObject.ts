@@ -25,12 +25,12 @@ module BuhtaTestModule {
 
         test_save_restore_to_xml() {
 
-            //var o=new TestSchemaObject();
-            //o.stringProp="走进黄河之都 广汽吉奥人文之旅兰州站花絮篇+1234567890\n='Бухта'-ООО\"[]{}()<>";
-            //var xml=o.toXML();
-            //console.log(xml);
-            //var n = <TestSchemaObject>BuhtaCore.getBaseObjectFromXml(xml, []);
-            //this.areIdentical(o.stringProp, n.stringProp,"stringProp");
+            var o=new TestSchemaObject();
+            o.stringProp="走进黄河之都 广汽吉奥人文之旅兰州站花絮篇+1234567890\n='Бухта'-ООО\"[]{}()<>";
+            var xml=o.toXML();
+            console.log(xml);
+            var n = <TestSchemaObject>BuhtaCore.getBaseObjectFromXml($(xml), []);
+            this.areIdentical(o.stringProp, n.stringProp,"stringProp");
 
         }
     }

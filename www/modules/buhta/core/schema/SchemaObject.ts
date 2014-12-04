@@ -132,6 +132,7 @@ module BuhtaCore {
         module:string = "BuhtaCore";
         __properties__:any = {};
 
+
         registerProperties() {
         }
 
@@ -169,6 +170,8 @@ module BuhtaCore {
             for (var prop in this.__properties__) {
                 if (!this[prop]) continue; // не заполнено
                 var propType = this.__properties__[prop].type;
+                if (this[prop].getClassName() != propType)
+                    throw "SchemaObject.xmlSerialize(): неверный тип значения '" + this[prop].getClassName() + "' у свойства '" + prop + "' объекта '" + (<any>this).getClassName() + "'";
                 if (propType == "string")
                     el.attr(unCamelize(prop), this[prop].toString());
                 else if (propType == "number")
@@ -245,7 +248,7 @@ module BuhtaCore {
             rec.ModuleId = this.moduleId;
             rec.ParentId = this.parentId;
             rec.Version = this.version;
-            rec.UpdateDate=new DateTime();
+            rec.UpdateDate = new DateTime();
             rec.Data = this.toXML();
             rec.UpdateDate = ServerSideValue.serverDateTime;
 

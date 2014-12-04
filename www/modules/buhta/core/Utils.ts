@@ -5,6 +5,8 @@
 // <reference path="coredatatypes/time.ts" />
 // <reference path="sql/sql.ts" />
 /// <reference path="app.ts" />
+
+
 module BuhtaCore {
 
     //export function randomString(length) {
@@ -168,9 +170,7 @@ module BuhtaCore {
         return str;
     }
 
-    export interface Object {
-        getClassName(): string;
-    }
+
     Object.defineProperty(Object.prototype, "getClassName", {
         value: function () {
             var funcNameRegex = /function (.{1,})\(/;

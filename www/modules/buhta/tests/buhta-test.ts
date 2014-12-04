@@ -13,7 +13,7 @@ module BuhtaTest {
         isTestsGroupActive(groupName: string): boolean {
             //if (groupName == "MsSqlTest1")
             //if (groupName == "TestDateTimeGroup")
-            //if (groupName == "TestSchemaObjectGroup")
+            if (groupName == "TestSchemaObjectGroup")
                 return true;
         }
         isTestActive(testName: string): boolean {
