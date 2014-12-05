@@ -1,4 +1,4 @@
-﻿// <reference path="../../core/buhta-core.d.ts" />
+﻿/// <reference path="../../core/buhta-core.d.ts" />
 
 //interface I_ZZ {
 //    button?: ZZ_Button;

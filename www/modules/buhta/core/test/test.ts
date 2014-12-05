@@ -4,37 +4,11 @@
 
 module BuhtaCore {
     export function test1() {
-        zz("spa").spaTabset.addTab("grid-test", "modules/buhta/core/test/grid-test.html", "grid-test-xxx", { tableName: "Договор" });
+        zz("spa").spaTabset.addTab("grid-test", "modules/buhta/core/test/grid-test.html", "grid-test-xxx", {tableName: "Договор"});
+    }
 
-
-        //var html=processTemplate("<div>Привет уроды ------, {{title}}!</div>", { title: "My New Post", body: "This is my first post!" })
-        //var source = "<div>Привет уроды, {{title}}!</div>";
-        //var template = Handlebars.compile(source);
-        //var context = { title: "My New Post", body: "This is my first post!" };
-        //var html = template(context);
-        //zz("spa").spaTabset.addTab("grid-test", html, "grid-test-xxx");
-
-
-
-        //var table = new SchemaTable();
-        //table.name = "Организация";
-        //table.columns = [];
-
-        //var col = new SchemaTableColumn();
-        //col.table = table;
-        //col.name = "Номер";
-        //col.dataType = new StringDataType(-1);
-        //table.columns.push(col);
-
-        //col = new SchemaTableColumn();
-        //col.table = table;
-        //col.dataType = new StringDataType(100);
-        //col.name = "Название";
-        //table.columns.push(col);
-
-        //table.saveToSql();
-        //$("body").text(table.toXML());
-
+    export function openSchemaDesigner() {
+        zz("spa").spaTabset.addTab("Дизайнер конфигурации", "<div style='height:100%'><schema-designer></schema-table-designer></div>", "Дизайнер кунфигурации", { tableName: "?" });
     }
 
     export function test2() {
