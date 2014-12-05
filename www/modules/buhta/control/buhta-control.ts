@@ -14,7 +14,10 @@ module BuhtaControl {
         c.sourceJ = $("<div>пиздец<button>жми2</button><ok-cancel-buttons/></div>");
         c.renderTo($("body"));
         c.onClick = (sender:Control)=> {
-            alert('click1:' + sender.nativeJ.text());
+            var ok=sender.find<Button>("#okButton");
+            if (ok)
+            ok.text="жопа";
+            alert('click1:' + sender.$.text());
         };
     }
 }

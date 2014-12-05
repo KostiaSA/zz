@@ -13,7 +13,7 @@ module BuhtaControl {
     export class Control {
         scope:any;
         sourceJ:JQuery;
-        nativeJ:JQuery;
+        $:JQuery;
         template:string;
 
         getRootTag():string {
@@ -21,11 +21,11 @@ module BuhtaControl {
         }
 
         get text() {
-            return this.nativeJ.text();
+            return this.$.text();
         }
 
         set text(value:string) {
-            this.nativeJ.text(value);
+            this.$.text(value);
         }
 
         private _onClick:ClickEvent;
@@ -34,13 +34,12 @@ module BuhtaControl {
         }
         set onClick(handler:ClickEvent) {
             this._onClick = handler;
-            this.nativeJ.click(()=>{
+            this.$.click(()=>{
                 handler(this);
             });
         }
 
         getTemplate():JQuery {
-            alert("getTemplate()");
             if (/(.html)$/.test(this.template)) {
                 var templ = templatesCache[this.template];
                 if (!templ) {
@@ -54,6 +53,16 @@ module BuhtaControl {
 
         isVisible():boolean {
             return true;
+        }
+
+        find<T extends Control>(selector:string):T {
+            var elements=this.$.find(selector);
+            for (var i=0;i<elements.length;i++){
+                var el:any=elements[i];
+                if (el.__control__ || el.__control__ instanceof Control)
+                return <T>el.__control__;
+            }
+            return undefined;
         }
 
         private getOnlyText(el:JQuery):string {
@@ -70,10 +79,18 @@ module BuhtaControl {
             if (!this.template) {
                 if (!this.sourceJ)
                     throw (<any>this).getClassName() + ": нет html-шаблона";
-                this.nativeJ = $("<" + this.getRootTag() + "/>");
-                this.nativeJ.addClass(this.sourceJ.attr("class"));
-                this.nativeJ.text(this.getOnlyText(this.sourceJ));
-                this.nativeJ["__control__"] = this;
+                this.$ = $("<" + this.getRootTag() + "/>");
+
+                var attrs = this.sourceJ.prop("attributes");
+                for (var i = 0; i < attrs.length; i++) {
+                    var attrName=attrs[i].name;
+                    if (attrName)
+                        this.$.attr(attrName, attrs[i].value);
+                };
+
+                this.$.addClass(this.sourceJ.attr("class"));
+                this.$.text(this.getOnlyText(this.sourceJ));
+                this.$[0]["__control__"] = this;
                 for (var i = 0; i < this.sourceJ.children().length; i++) {
                     var child = $(this.sourceJ.children()[i]);
                     var childTag = child.prop("tagName").toLowerCase();
@@ -81,15 +98,23 @@ module BuhtaControl {
                         throw "неизвестный tag '" + childTag + "'";
                     var childControl:Control = new registeredTags[childTag]();
                     childControl.sourceJ = child;
-                    childControl.renderTo(this.nativeJ);
+                    childControl.renderTo(this.$);
                 }
             }
             else {
                 var template:JQuery = this.getTemplate();
-                this.nativeJ = $("<" + this.getRootTag() + "/>");
-                this.nativeJ.addClass(template.attr("class"));
-                this.nativeJ.text(this.getOnlyText(template));
-                this.nativeJ["__control__"] = this;
+                this.$ = $("<" + this.getRootTag() + "/>");
+
+                var attrs = template.prop("attributes");
+                for (var i = 0; i < attrs.length; i++) {
+                    var attrName=attrs[i].name;
+                    if (attrName)
+                        this.$.attr(attrName, attrs[i].value);
+                };
+
+                this.$.addClass(template.attr("class"));
+                this.$.text(this.getOnlyText(template));
+                this.$[0]["__control__"] = this;
                 for (var i = 0; i < template.children().length; i++) {
                     var child = $(template.children()[i]);
                     var childTag = child.prop("tagName").toLowerCase();
@@ -97,10 +122,10 @@ module BuhtaControl {
                         throw "неизвестный tag '" + childTag + "'";
                     var childControl:Control = new registeredTags[childTag]();
                     childControl.sourceJ = child;
-                    childControl.renderTo(this.nativeJ);
+                    childControl.renderTo(this.$);
                 }
             }
-            this.nativeJ.appendTo(domJ);
+            this.$.appendTo(domJ);
         }
     }
 
