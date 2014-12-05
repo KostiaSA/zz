@@ -5,6 +5,8 @@
 // <reference path="coredatatypes/time.ts" />
 // <reference path="sql/sql.ts" />
 /// <reference path="app.ts" />
+
+
 module BuhtaCore {
 
     //export function randomString(length) {
@@ -168,9 +170,7 @@ module BuhtaCore {
         return str;
     }
 
-    export interface Object {
-        getClassName(): string;
-    }
+
     Object.defineProperty(Object.prototype, "getClassName", {
         value: function () {
             var funcNameRegex = /function (.{1,})\(/;
@@ -199,7 +199,8 @@ module BuhtaCore {
     };
 
     (<any>Date.prototype).toSql = function () {
-        return "'" + this.toISOString().replace("T", " ") + "'";
+//        return "'" + this.toISOString().replace("T", " ") + "'";
+        return new DateTime(this).toSql();
     };
 
     //$.fn.textWidth = function (text, font) {

@@ -13,7 +13,7 @@ module BuhtaTest {
         isTestsGroupActive(groupName: string): boolean {
             //if (groupName == "MsSqlTest1")
             //if (groupName == "TestDateTimeGroup")
-            //if (groupName == "TestSchemaObjectGroup")
+            if (groupName == "TestSchemaObjectGroup")
                 return true;
         }
         isTestActive(testName: string): boolean {
@@ -27,6 +27,9 @@ module BuhtaTest {
 
 
     export function execute() {
+
+        //new BuhtaTestModule.TestSchemaObjectGroup().test_save_restore_to_xml();
+
         var test = new tsUnit.Test(BuhtaTestModule);
 
         $("body").css("background-color", "white");
