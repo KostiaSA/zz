@@ -4,7 +4,6 @@
 
 module BuhtaControl {
     export class Button extends Control{
-        text:string;
 
         getRootTag():string {
             return "button";

@@ -1,15 +1,7 @@
 ﻿/// <reference path="../Utils.ts" />
 /// <reference path="../schema/schemaobject.ts" />
 
-/// <reference path="../../control/buhta-control.d.ts" />
-
 module BuhtaCore {
-    export function testNoAngular() {
-        var c=new BuhtaControl.Control();
-        c.sourceJ=$("<div>пиздец<button>жми2</button></div>");
-        c.renderTo($("body"));
-    }
-
     export function test1() {
         zz("spa").spaTabset.addTab("grid-test", "modules/buhta/core/test/grid-test.html", "grid-test-xxx", {tableName: "Договор"});
     }
