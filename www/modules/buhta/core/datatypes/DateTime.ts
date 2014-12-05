@@ -20,7 +20,7 @@ class DateTime {
     constructor(date:string, specialFormat:() => void, language?:string, strict?:boolean);
     constructor(date:string, formatsIncludingSpecial:any[], strict?:boolean);
     constructor(date:string, formatsIncludingSpecial:any[], language?:string, strict?:boolean);
-    constructor(date:Date);
+    //constructor(date:Date);
     constructor(date:Object);
 
     constructor(p1?:any, p2?:any, p3?:any, p4?:any) {
@@ -242,6 +242,17 @@ class DateTime {
     diffMilliSeconds(datetime:DateTime):number {
         return this.moment.clone().diff(datetime.moment.clone()).toNumber();
     }
+
+    isBefore(datetime:DateTime):boolean {
+        return this.moment.clone().isBefore(datetime.moment.clone());
+    }
+    isSame(datetime:DateTime):boolean {
+        return this.moment.clone().isSame(datetime.moment.clone());
+    }
+    isAfter(datetime:DateTime):boolean {
+        return this.moment.clone().isAfter(datetime.moment.clone());
+    }
+
 }
 
 

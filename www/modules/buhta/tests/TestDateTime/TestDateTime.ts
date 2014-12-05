@@ -208,6 +208,20 @@ module BuhtaTestModule {
             var dt1 = new DateTime([2014, 4, 20, 18, 50, 30, 900]);
             var dt2 = new DateTime([2014, 4, 20, 18, 50, 30, 800]);
             this.areIdentical(dt1.diffMilliSeconds(dt2).toString(), "100", "diff_DateTime milliseconds");
+
+            var dt1 = new DateTime([2014, 4, 21, 0, 0, 0, 0]);
+            var dt2 = new DateTime([2014, 4, 31, 0, 0, 0, 0]);
+            this.areIdentical(dt1.isBefore(dt2).toString(), "true", "diff_DateTime isBefore");
+            this.areIdentical(dt1.isSame(dt2).toString(), "false", "diff_DateTime isBefore");
+            this.areIdentical(dt1.isAfter(dt2).toString(), "false", "diff_DateTime isBefore");
+            var dt2 = new DateTime([2014, 4, 21, 0, 0, 0, 0]);
+            this.areIdentical(dt1.isBefore(dt2).toString(), "false", "diff_DateTime isBefore");
+            this.areIdentical(dt1.isSame(dt2).toString(), "true", "diff_DateTime isBefore");
+            this.areIdentical(dt1.isAfter(dt2).toString(), "false", "diff_DateTime isBefore");
+            var dt2 = new DateTime([2014, 4, 11, 0, 0, 0, 0]);
+            this.areIdentical(dt1.isBefore(dt2).toString(), "false", "diff_DateTime isBefore");
+            this.areIdentical(dt1.isSame(dt2).toString(), "false", "diff_DateTime isBefore");
+            this.areIdentical(dt1.isAfter(dt2).toString(), "true", "diff_DateTime isBefore");
         }
 
     }
