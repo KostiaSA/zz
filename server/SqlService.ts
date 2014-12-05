@@ -52,9 +52,8 @@ module SqlService {
             port: db.port
         };
 
-        msSqlDriver.connect(config, function (/*err*/) {
+        msSqlDriver.connect(config, function (err) {
             // ... error checks
-
 
             var recordset = {tables: []};
             var curr_table;
@@ -88,7 +87,6 @@ module SqlService {
 
             request.on('recordset', function (columns:Array<any>) {
                 // Emitted once for each recordset in a query
-                //console.log('recordset', columns.length);
                 var cols = [];
                 bigIntCols = undefined;
                 for (var i in columns) {
@@ -122,25 +120,23 @@ module SqlService {
             });
 
             request.on('error', function (err) {
-                // May be emitted multiple times
-                if (logErrorsToConsole) {
-                    console.log('mssql query error 1: ', err.message,";\n",work.sql.join(";\n"));
-                    //console.log(work.sql.join(";\n"));
-                }
+                //// May be emitted multiple times
                 work.result = err.message;
+                if (logErrorsToConsole) {
+                    console.error('mssql query error: ', err.message,";\n",work.sql.join(";\n"));
+                }
                 doneHandler();
             });
 
             request.on('done', function (/*returnValue*/) {
                 // Always emitted as the last one
-                if (work.result != "error") {
+                if (!work.result) { // если была ошибка, то все манипуляции уже сделаны в 'on error'
                     work.result = "Ok";
                     work.resultDataset = recordset;
+                    work.resultTimeMs = <any>(new Date()) - startTime;
+                    console.log('mssql query ok!', work.resultTimeMs, 'ms');
+                    doneHandler();
                 }
-                work.resultTimeMs = <any>(new Date()) - startTime;
-                doneHandler();
-                console.log('mssql query ok!', work.resultTimeMs, 'ms');
-                //response.send({ result: 'ok', recordset: recordset });
             });
 
             request.query(connSetup + "\n" + work.sql.join(";\n")); // or request.execute(procedure);
@@ -240,6 +236,7 @@ module SqlService {
     }
 
     function post(request, response) {
+
         var work:SqlWork = new SqlWork();
         work.database = request.body.database;
         work.sql = request.body.sql;
