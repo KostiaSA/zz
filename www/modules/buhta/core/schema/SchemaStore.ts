@@ -166,7 +166,7 @@ module BuhtaCore {
             t.saveToSql();
 
             t = new SchemaTable();
-            t.id = new Guid("");
+            t.id = new Guid("baa2f1a4-83e8-457f-8aea-d04bfbca0a5d");
             t.name = "Регион";
             t.version = 1;
             t.packageId = crmPackage;

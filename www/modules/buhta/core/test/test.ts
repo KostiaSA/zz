@@ -3,69 +3,8 @@
 
 
 module BuhtaCore {
-    declare var JXON: any;
     export function test1() {
-
-        var t = new BuhtaCore.SchemaTable();
-        t.name = "TestDateTimeTable";
-        t.addDateTimeColumn("DateTimeMin");
-        t.addDateTimeColumn("DateTimeMax");
-        t.addDateTimeColumn("DateTimeNow");
-
-        t.addTimeColumn("TimeMin");
-        t.addTimeColumn("TimeMax");
-        t.addTimeColumn("TimeNow");
-
-        t.addDateColumn("DateMin");
-        t.addDateColumn("DateMax");
-        t.addDateColumn("DateNow");
-
-        t.executeCreateTable(this.db);
-
-        var op = new BuhtaCore.SqlInsert();
-        op.schemaTable = t;
-        op.database = this.db;
-        var rec: any = {};
-
-        rec.DateTimeMin = new DateTime("0100-01-01 00:00:00.00");
-        rec.DateTimeMax = new DateTime("3500-12-31 23:59:59.99");
-        rec.DateTimeNow = new DateTime();
-
-        rec.TimeMax = new Time("23:59:59.99");
-        rec.TimeMin = new Time("00:00:00.00");
-        rec.TimeNow = new Time();
-
-        rec.DateMax = new Date("2014-12-31 00:00:00");
-        //rec.DateMin = new Date("0100-01-01 00:00:00");
-        //rec.DateNow = new Date();
-
-        op.recs.push(rec);
-        op.execute();
-
-        var ds = BuhtaCore.executeSql("select * from \"TestDateTimeTable\"", this.db);
-        var r = ds.tables[0].rows[0];
-
-
-        //var ins = new SqlUpsert();
-        //ins.database = "data-pg";
-        //ins.table = "Проводка";
-        //ins.keyFieldName = "Ключ";
-        //ins.rec.Ключ = 100;
-        //ins.rec.Дата = new Date();
-        //ins.rec.Дебет = "41/1'12";
-        //ins.rec.Сумма = 7890 + 786.12;
-        //ins.execute();
-
-        //var ins = new SqlInsert();
-        //ins.database = "data-pg";
-        //ins.table = "Проводка";
-        //ins.rec.Ключ = 100;
-        //ins.rec.Дата = new Date();
-        //ins.rec.Дебет = "41/1";
-        //ins.rec.Сумма = 7890 + 786.12;
-        //ins.execute();
-
-        //zz("spa").spaTabset.addTab("grid-test", "buhtacore/test/grid-test.html", "grid-test-xxx", { tableName: "Договор" });
+        zz("spa").spaTabset.addTab("grid-test", "modules/buhta/core/test/grid-test.html", "grid-test-xxx", { tableName: "Договор" });
 
 
         //var html=processTemplate("<div>Привет уроды ------, {{title}}!</div>", { title: "My New Post", body: "This is my first post!" })
