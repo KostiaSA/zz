@@ -8,6 +8,7 @@
 
 /// <reference path="schema/SchemaObject.ts" />
 /// <reference path="schema/table/SchemaTable.ts" />
+/// <reference path="schema/folder/SchemaFolder.ts" />
 /// <reference path="schema/SchemaStore.ts" />
 
 /// <reference path="sql/Sql.ts" />
@@ -23,6 +24,10 @@
 
 /// <reference path="zz/grid/zz-grid.ts" />
 /// <reference path="zz/grid/zz-grid-column.ts" />
+
+/// <reference path="zz/form/zz-form.ts" />
+/// <reference path="zz/form/zz-form-control.ts" />
+/// <reference path="zz/form/zz-form-text.ts" />
 
 /// <reference path="test/test.ts" />
 

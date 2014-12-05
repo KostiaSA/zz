@@ -85,7 +85,6 @@ module SqlService {
             connSetup += "SET NOCOUNT ON;";
             connSetup += "SET ANSI_NULL_DFLT_ON ON;";
 
-            request.query(connSetup + "\n" + work.sql.join(";\n")); // or request.execute(procedure);
 
             request.on('recordset', function (columns:Array<any>) {
                 // Emitted once for each recordset in a query
@@ -125,8 +124,8 @@ module SqlService {
             request.on('error', function (err) {
                 // May be emitted multiple times
                 if (logErrorsToConsole) {
-                    console.log('mssql query error: ', err.message);
-                    console.log(work.sql.join(";\n"));
+                    console.log('mssql query error 1: ', err.message,";\n",work.sql.join(";\n"));
+                    //console.log(work.sql.join(";\n"));
                 }
                 work.result = err.message;
                 doneHandler();
@@ -143,6 +142,8 @@ module SqlService {
                 console.log('mssql query ok!', work.resultTimeMs, 'ms');
                 //response.send({ result: 'ok', recordset: recordset });
             });
+
+            request.query(connSetup + "\n" + work.sql.join(";\n")); // or request.execute(procedure);
         });
 
     }

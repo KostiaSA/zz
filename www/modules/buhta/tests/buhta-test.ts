@@ -10,10 +10,12 @@
 module BuhtaTest {
 
     class Limiter implements tsUnit.ITestRunLimiter {
+        TestSchemaObject
         isTestsGroupActive(groupName: string): boolean {
+            if (groupName == "TestSchemaObject") return false;  // служебный класс
             //if (groupName == "MsSqlTest1")
             //if (groupName == "TestDateTimeGroup")
-            if (groupName == "TestSchemaObjectGroup")
+            //if (groupName == "TestSchemaObjectGroup")
                 return true;
         }
         isTestActive(testName: string): boolean {

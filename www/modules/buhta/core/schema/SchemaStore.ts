@@ -3,6 +3,7 @@
  */
 
 /// <reference path="../../../../../server/DesignerServiceApi.ts" />
+/// <reference path="folder/SchemaFolder.ts" />
 
 module BuhtaCore {
 
@@ -54,8 +55,8 @@ module BuhtaCore {
         constructor() {
             this.tables.SchemaLoginTable = new SchemaLoginTable();
             this.tables.SchemaObjectTable = new SchemaObjectTable();
-            this.tables.SchemaModuleTable = new SchemaModuleTable();
-            this.tables.SchemaModuleDependenciesTable = new SchemaModuleDependenciesTable();
+            this.tables.SchemaPackageTable = new SchemaPackageTable();
+            this.tables.SchemaPackageDependenciesTable = new SchemaPackageDependenciesTable();
             this.tables.SchemaAppTable = new SchemaAppTable();
             this.tables.SchemaSnapshotTable = new SchemaSnapshotTable();
             this.tables.SchemaSnapshotObjectsTable = new SchemaSnapshotObjectsTable();
@@ -104,11 +105,30 @@ module BuhtaCore {
             r.recs.push(rec);
             r.execute();
 
-            var r = new SqlInsert("schema", this.tables.SchemaModuleTable);
+            var r = new SqlInsert("schema", this.tables.SchemaPackageTable);
             rec = {};
             rec.Id = new Guid("6cf67bdb-b02d-414c-96ad-af34b6659c22");
+            var crmPackage=rec.Id;
             rec.Name = "CRM";
             rec.CompanyName = "ООО \"БУХта\"";
+            r.recs.push(rec);
+            r.execute();
+
+            var r = new SqlInsert("schema", this.tables.SchemaPackageTable);
+            rec = {};
+            rec.Id = new Guid("35c9af9b-7502-49c6-906c-27042e332923");
+            var authModule=rec.Id;
+            rec.Name = "AUTH";
+            rec.CompanyName = "ООО \"БУХта\"";
+            r.recs.push(rec);
+            r.execute();
+
+            var r = new SqlInsert("schema", this.tables.SchemaPackageTable);
+            rec = {};
+            rec.Id = new Guid("903903f7-dc5a-4f21-a7df-aca3a8091334");
+            var retailPackage=rec.Id;
+            rec.Name = "RETAIL";
+            rec.CompanyName = "ООО \"Авалон\"";
             r.recs.push(rec);
             r.execute();
 
@@ -117,7 +137,7 @@ module BuhtaCore {
             t.id = new Guid("310b912d-096f-4910-8f53-32d292723625");
             t.name = "Организация";
             t.version = 1;
-            t.moduleId = new Guid("6cf67bdb-b02d-414c-96ad-af34b6659c22");
+            t.packageId = crmPackage;
             t.addGuidColumn("Id");
             t.addStringColumn("Номер");
             t.addStringColumn("Название");
@@ -128,13 +148,44 @@ module BuhtaCore {
             t.id = new Guid("af8a7de6-48f9-4da9-b4d4-7a48dcd64835");
             t.name = "Сотрудник";
             t.version = 1;
-            t.moduleId = new Guid("6cf67bdb-b02d-414c-96ad-af34b6659c22");
+            t.packageId = crmPackage;
             t.addGuidColumn("Id");
             t.addStringColumn("Номер");
             t.addStringColumn("Фамилия");
             t.addStringColumn("Имя");
             t.addStringColumn("Отчество");
             t.addDateColumn("ДатаРождения");
+            t.saveToSql();
+
+            var f=new SchemaFolder();
+            t.id = new Guid("8db782f3-141a-4b66-b791-64f6933f4fb2");
+            var qFolder=t.id;
+            t.name = "Запросы";
+            t.version = 1;
+            t.packageId = crmPackage;
+            t.saveToSql();
+
+            t = new SchemaTable();
+            t.id = new Guid("");
+            t.name = "Регион";
+            t.version = 1;
+            t.packageId = crmPackage;
+            t.parentId = qFolder;
+            t.addGuidColumn("Id");
+            t.addIntColumn("Номер");
+            t.addStringColumn("Название");
+            t.saveToSql();
+
+            t = new SchemaTable();
+            t.id = new Guid("db628203-a3df-4fb9-912b-0d82dc0a1168");
+            t.name = "Магазин";
+            t.version = 1;
+            t.packageId = retailPackage;
+            t.addGuidColumn("Id");
+            t.addStringColumn("Номер");
+            t.addStringColumn("Название");
+            t.addStringColumn("Город");
+            t.addStringColumn("Адрес");
             t.saveToSql();
         }
 
@@ -159,27 +210,27 @@ module BuhtaCore {
             this.addStringColumn("Name");
             this.addStringColumn("Data");
             this.addGuidColumn("ParentId");
-            this.addGuidColumn("ModuleId");
+            this.addGuidColumn("PackageId");
             this.addGuidColumn("CheckoutLoginId");
             this.addDateTimeColumn("UpdateDate");
         }
     }
 
-    export class SchemaModuleTable extends SchemaTable {
+    export class SchemaPackageTable extends SchemaTable {
         constructor() {
             super();
-            this.name = "__SchemaModule__";
+            this.name = "__SchemaPackage__";
             this.addGuidColumn("Id");
             this.addStringColumn("Name");
             this.addStringColumn("CompanyName");
         }
     }
 
-    export class SchemaModuleDependenciesTable extends SchemaTable {
+    export class SchemaPackageDependenciesTable extends SchemaTable {
         constructor() {
             super();
-            this.name = "__SchemaModuleDependencies__";
-            this.addGuidColumn("ModuleId");
+            this.name = "__SchemaPackageDependencies__";
+            this.addGuidColumn("PackageId");
             this.addGuidColumn("DependedOnId");
         }
     }

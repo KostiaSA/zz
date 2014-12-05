@@ -287,7 +287,7 @@ module BuhtaCore {
         id:Guid;
         name:string;
         version:number;
-        moduleId:Guid;
+        packageId:Guid;
         parentId:Guid;
 
         registerProperties() {
@@ -295,7 +295,7 @@ module BuhtaCore {
             this.registerProperty("id", "Guid");
             this.registerProperty("name", "string");
             this.registerProperty("version", "number");
-            this.registerProperty("moduleId", "Guid");
+            this.registerProperty("packageId", "Guid");
             this.registerProperty("parentId", "Guid");
         }
 
@@ -311,7 +311,7 @@ module BuhtaCore {
             var rec:any = {};
             rec.Id = this.id;
             rec.Name = this.name;
-            rec.ModuleId = this.moduleId;
+            rec.PackageId = this.packageId;
             rec.ParentId = this.parentId;
             rec.Version = this.version;
             rec.UpdateDate = new DateTime();
