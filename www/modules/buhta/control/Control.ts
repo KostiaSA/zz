@@ -17,7 +17,7 @@ module BuhtaControl {
         template:string;
 
         getRootTag():string {
-            return "div";
+            return undefined;
         }
 
         get text() {
@@ -75,71 +75,83 @@ module BuhtaControl {
             return ret;
         }
 
+        beforeRender() {
+        }
+
+        afterRender() {
+        }
+
+        copyClassesFrom(from:JQuery) {
+            this.$.addClass(from.attr("class"));
+        }
+
+        copyAttrsFrom(from:JQuery, to?:JQuery) {
+            if (!to)
+                to = this.$;
+            var attrs = from.prop("attributes");
+            for (var i = 0; i < attrs.length; i++) {
+                var attrName = attrs[i].name;
+                if (attrName)
+                    to.attr(attrName, attrs[i].value);
+            }
+        }
+
+        renderChildrenFrom(from:JQuery, to?:JQuery) {
+            if (!to)
+                to = this.$;
+            for (var i = 0; i < from.children().length; i++) {
+                var child = $(from.children()[i]);
+                var childTag = child.prop("tagName").toLowerCase();
+                var childControl:Control;
+                if (!registeredTags[childTag]) {
+                    if (childTag.indexOf("-") > -1)
+                        throw "неизвестный tag '" + childTag + "'";
+                    else
+                        childControl = new Control();
+                }
+                else
+                    childControl = new registeredTags[childTag]();
+                childControl.sourceJ = child;
+                childControl.renderTo(to);
+            }
+
+        }
+
         renderTo(domJ:JQuery) {
+            this.beforeRender();
 
             if (!this.template) {
                 if (!this.sourceJ)
                     throw (<any>this).getClassName() + ": нет html-шаблона";
-                this.$ = $("<" + this.getRootTag() + "/>");
+                if (this.getRootTag())
+                    this.$ = $("<" + this.getRootTag() + "/>");
+                else
+                    this.$ = $("<" + this.sourceJ.prop("tagName") + "/>");
 
-                var attrs = this.sourceJ.prop("attributes");
-                for (var i = 0; i < attrs.length; i++) {
-                    var attrName = attrs[i].name;
-                    if (attrName)
-                        this.$.attr(attrName, attrs[i].value);
-                }
+                this.copyAttrsFrom(this.sourceJ);
+                this.copyClassesFrom(this.sourceJ);
 
-                this.$.addClass(this.sourceJ.attr("class"));
                 this.$.text(this.getOnlyText(this.sourceJ));
                 this.$[0]["__control__"] = this;
-                for (var i = 0; i < this.sourceJ.children().length; i++) {
-                    var child = $(this.sourceJ.children()[i]);
-                    var childTag = child.prop("tagName").toLowerCase();
-                    var childControl:Control;
-                    if (!registeredTags[childTag]) {
-                        if (childTag.indexOf("-") > -1)
-                            throw "неизвестный tag '" + childTag + "'";
-                        else
-                            childControl = new Control();
-                    }
-                    else
-                        childControl = new registeredTags[childTag]();
-                    childControl.sourceJ = child;
-                    childControl.renderTo(this.$);
-                }
+                this.renderChildrenFrom(this.sourceJ);
             }
             else {
                 var template:JQuery = this.getTemplate();
-                this.$ = $("<" + this.getRootTag() + "/>");
+                if (this.getRootTag())
+                    this.$ = $("<" + this.getRootTag() + "/>");
+                else
+                    this.$ = $("<" + template.prop("tagName") + "/>");
 
-                var attrs = template.prop("attributes");
-                for (var i = 0; i < attrs.length; i++) {
-                    var attrName = attrs[i].name;
-                    if (attrName)
-                        this.$.attr(attrName, attrs[i].value);
-                }
+                this.copyAttrsFrom(template);
 
+                this.copyClassesFrom(template);
 
-                this.$.addClass(template.attr("class"));
                 this.$.text(this.getOnlyText(template));
                 this.$[0]["__control__"] = this;
-                for (var i = 0; i < template.children().length; i++) {
-                    var child = $(template.children()[i]);
-                    var childTag = child.prop("tagName").toLowerCase();
-                    var childControl:Control;
-                    if (!registeredTags[childTag]) {
-                        if (childTag.indexOf("-") > -1)
-                            throw "неизвестный tag '" + childTag + "'";
-                        else
-                            childControl = new Control();
-                    }
-                    else
-                        childControl = new registeredTags[childTag]();
-
-                    childControl.sourceJ = child;
-                    childControl.renderTo(this.$);
-                }
+                this.renderChildrenFrom(template);
             }
+
+            this.afterRender();
             this.$.appendTo(domJ);
         }
     }

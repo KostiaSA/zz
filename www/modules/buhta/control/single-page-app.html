@@ -2,13 +2,17 @@
     <div>
         Бухта SAP no Angular<br>
     </div>
-    <tabset id="spatabset" fit-height closable style="border:solid 0px red;">
-        <tab fit-height title="Бухта 5">
+    <tabset id="spatabset" fit-height closable style="border:solid 1px red;">
+        <tab fit-height title="Бухта 5" id="один 1">
             <h4>Добро пожаловать в SPA Бухта 5!</h4>
             <button class="btn-success" onclick="BuhtaCore.test1()">test-grid</button>
             <button class="btn-success" onclick="BuhtaCore.openTable()">open table</button>
             <br/>
-            <button class="btn" onclick="BuhtaCore.openSchemaDesigner()">Дизайнер конфигурации</button>
+            <button onclick="BuhtaCore.openSchemaDesigner()">Дизайнер конфигурации</button>
+        </tab>
+        <tab fit-height title="Привет" id="два 2">
+            <h4>Добро 5!</h4>
+            <button class="btn-success" onclick="BuhtaCore.test1()">Друг!</button>
         </tab>
     </tabset>
 </div>

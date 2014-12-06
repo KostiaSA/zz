@@ -5,8 +5,14 @@
 module BuhtaControl {
     export class Button extends Control{
 
-        getRootTag():string {
-            return "button";
+        //getRootTag():string {
+        //    return "button";
+        //}
+
+        afterRender()
+        {
+            super.afterRender();
+            this.$.addClass("btn");
         }
 
     }

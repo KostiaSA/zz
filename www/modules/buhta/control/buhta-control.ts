@@ -8,6 +8,8 @@
 /// <reference path="Button" />
 /// <reference path="OkCancelButtons" />
 /// <reference path="SinglePageApp" />
+/// <reference path="tabset/Tabset" />
+/// <reference path="tabset/Tab" />
 
 module BuhtaControl {
     export function testNoAngular() {
