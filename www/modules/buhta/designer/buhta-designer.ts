@@ -5,5 +5,5 @@
 /// <reference path="schema/schema-designer.ts" />
 
 module BuhtaDesigner {
- var fake=7;
+ var fake=8;
 }

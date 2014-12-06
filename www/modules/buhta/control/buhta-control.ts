@@ -7,6 +7,7 @@
 /// <reference path="Control" />
 /// <reference path="Button" />
 /// <reference path="OkCancelButtons" />
+/// <reference path="SinglePageApp" />
 
 module BuhtaControl {
     export function testNoAngular() {
@@ -19,5 +20,9 @@ module BuhtaControl {
             ok.text="жопа";
             alert('click1:' + sender.$.text());
         };
+    }
+    export function startSPA() {
+        var c = new SinglePageApp();
+        c.renderTo($("body"));
     }
 }

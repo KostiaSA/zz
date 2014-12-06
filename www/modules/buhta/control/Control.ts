@@ -32,9 +32,10 @@ module BuhtaControl {
         get onClick():ClickEvent {
             return this._onClick;
         }
+
         set onClick(handler:ClickEvent) {
             this._onClick = handler;
-            this.$.click(()=>{
+            this.$.click(()=> {
                 handler(this);
             });
         }
@@ -56,11 +57,11 @@ module BuhtaControl {
         }
 
         find<T extends Control>(selector:string):T {
-            var elements=this.$.find(selector);
-            for (var i=0;i<elements.length;i++){
-                var el:any=elements[i];
+            var elements = this.$.find(selector);
+            for (var i = 0; i < elements.length; i++) {
+                var el:any = elements[i];
                 if (el.__control__ || el.__control__ instanceof Control)
-                return <T>el.__control__;
+                    return <T>el.__control__;
             }
             return undefined;
         }
@@ -83,10 +84,10 @@ module BuhtaControl {
 
                 var attrs = this.sourceJ.prop("attributes");
                 for (var i = 0; i < attrs.length; i++) {
-                    var attrName=attrs[i].name;
+                    var attrName = attrs[i].name;
                     if (attrName)
                         this.$.attr(attrName, attrs[i].value);
-                };
+                }
 
                 this.$.addClass(this.sourceJ.attr("class"));
                 this.$.text(this.getOnlyText(this.sourceJ));
@@ -94,9 +95,15 @@ module BuhtaControl {
                 for (var i = 0; i < this.sourceJ.children().length; i++) {
                     var child = $(this.sourceJ.children()[i]);
                     var childTag = child.prop("tagName").toLowerCase();
-                    if (!registeredTags[childTag])
-                        throw "неизвестный tag '" + childTag + "'";
-                    var childControl:Control = new registeredTags[childTag]();
+                    var childControl:Control;
+                    if (!registeredTags[childTag]) {
+                        if (childTag.indexOf("-") > -1)
+                            throw "неизвестный tag '" + childTag + "'";
+                        else
+                            childControl = new Control();
+                    }
+                    else
+                        childControl = new registeredTags[childTag]();
                     childControl.sourceJ = child;
                     childControl.renderTo(this.$);
                 }
@@ -107,10 +114,11 @@ module BuhtaControl {
 
                 var attrs = template.prop("attributes");
                 for (var i = 0; i < attrs.length; i++) {
-                    var attrName=attrs[i].name;
+                    var attrName = attrs[i].name;
                     if (attrName)
                         this.$.attr(attrName, attrs[i].value);
-                };
+                }
+
 
                 this.$.addClass(template.attr("class"));
                 this.$.text(this.getOnlyText(template));
@@ -118,9 +126,16 @@ module BuhtaControl {
                 for (var i = 0; i < template.children().length; i++) {
                     var child = $(template.children()[i]);
                     var childTag = child.prop("tagName").toLowerCase();
-                    if (!registeredTags[childTag])
-                        throw "неизвестный tag '" + childTag + "'";
-                    var childControl:Control = new registeredTags[childTag]();
+                    var childControl:Control;
+                    if (!registeredTags[childTag]) {
+                        if (childTag.indexOf("-") > -1)
+                            throw "неизвестный tag '" + childTag + "'";
+                        else
+                            childControl = new Control();
+                    }
+                    else
+                        childControl = new registeredTags[childTag]();
+
                     childControl.sourceJ = child;
                     childControl.renderTo(this.$);
                 }
@@ -129,6 +144,5 @@ module BuhtaControl {
         }
     }
 
-    registeredTags["control"] = Control;
 
 }
