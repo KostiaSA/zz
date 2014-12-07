@@ -42,13 +42,17 @@ module BuhtaControl {
 
                     var closableStr:string = "";
                     if (this.sourceJ.attr("closable") == "")
-                        closableStr = "<button type='button' class='close closeTab mlm' onclick='zz($(this).parent().parent()).remove()'> x </button>";
+                        closableStr = "<div type='button' class='close closeTab mlm' onclick='zz($(this).parent().parent()).remove()'> x </div>";
                     var li = $("<li zz-type='tab'><a href='#'>" + closableStr + "</a></li>").appendTo(ul);
                     if (i == 0) {
                         li.addClass("active");
                     }
-                    //var zzTab = new ZZ_Tab(li,scope,$compile);
                     li.find("a").append($("<span>" + title + "</span>"));
+                    li.find("a").click((eventObject: JQueryEventObject) => {
+                        var a=$(eventObject.delegateTarget);
+                        <Tabset>(a.parents("ul")[0]["__control__"]).getTabById(a.parent().attr("id")).setActive();
+                    });
+
                     if (tabId) {
                         li.attr("id", tabId);
                     }
@@ -56,6 +60,7 @@ module BuhtaControl {
             }
             ul.appendTo(domJ);
             this.tabsUl = ul;
+            ul[0]["__control__"] = this;
 
             // затем содержимое
             var content = $("<div class='tab-content'></div>");
@@ -86,10 +91,8 @@ module BuhtaControl {
 
             this.$ = content;
             this.$[0]["__control__"] = this;
-            //this.renderChildrenFrom(this.sourceJ);
 
             this.afterRender();
-            //this.$.appendTo(domJ);
         }
     }
 
