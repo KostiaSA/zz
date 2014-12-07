@@ -5,9 +5,9 @@
 /// <reference path="../../../lib/lib.ts" />
 /// <reference path="../core/buhta-core.d.ts" />
 /// <reference path="Control" />
-/// <reference path="Button" />
+/// <reference path="button/Button" />
 /// <reference path="OkCancelButtons" />
-/// <reference path="SinglePageApp" />
+/// <reference path="single-page-app/SinglePageApp" />
 /// <reference path="tabset/Tabset" />
 /// <reference path="tabset/Tab" />
 
