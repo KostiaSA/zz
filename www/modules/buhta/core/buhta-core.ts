@@ -31,7 +31,7 @@
 
 /// <reference path="test/test.ts" />
 
-//var app = angular.module("app", ['ui.bootstrap.tabs'] ); ////
+//var app = angular.module("app", ['ui.bootstrap.tabs'] ); ///
 module BuhtaCore {
- var fake=17;
+ var fake=1;
 }

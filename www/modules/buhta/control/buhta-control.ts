@@ -10,6 +10,8 @@
 /// <reference path="single-page-app/SinglePageApp" />
 /// <reference path="tabset/Tabset" />
 /// <reference path="tabset/Tab" />
+/// <reference path="grid/Grid" />
+/// <reference path="grid/GridColumn" />
 
 module BuhtaControl {
     export function testNoAngular() {
