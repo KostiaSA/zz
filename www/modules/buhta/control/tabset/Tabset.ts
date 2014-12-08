@@ -42,7 +42,7 @@ module BuhtaControl {
 
                     var closableStr:string = "";
                     if (this.sourceJ.attr("closable") == "")
-                        closableStr = "<div type='button' class='close closeTab mlm' onclick='zz($(this).parent().parent()).remove()'> x </div>";
+                        closableStr = "<div type='button' class='close closeTab mlm' onclick='$(this).parents(\"ul\")[0][\"__control__\"].getTabById($(this).parents(\"li\").attr(\"id\")).remove()'> x </div>";
                     var li = $("<li zz-type='tab'><a href='#'>" + closableStr + "</a></li>").appendTo(ul);
                     if (i == 0) {
                         li.addClass("active");

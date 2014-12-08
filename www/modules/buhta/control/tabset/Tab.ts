@@ -18,17 +18,14 @@ module BuhtaControl {
             this.parentTabset.$.children(".tab-pane").removeClass("active");
             this.$.addClass("active");
             this.parentTabset.tabsUl.children("[id='" + this.id + "']").addClass("active");
+        }
 
-            //var tabset:JQuery = this.getParentTabset().element;
-            //tabset.children("ul").children("li").removeClass("active");
-            //tabset.children(".tab-content").children(".tab-pane").removeClass("active");
-            //$(tabset.children("ul").children()[this.element.index()]).addClass("active");
-            //$(tabset.children(".tab-content").children()[this.element.index()]).addClass("active");
-            ////if (tabset.find(".tab-content").height() != this._savedTabHeight) {
-            ////  this._savedTabHeight = tabset.find(".tab-content").height();
-            //this.scope.$apply();
-            ////}
-
+        remove() {
+            var index = this.$.index();
+            $(this.parentTabset.tabsUl.children("li")[index]).remove();
+            $(this.parentTabset.$.children(".tab-pane")[index]).remove();
+            if (this.parentTabset.$.children(".tab-pane").length > 0)
+                <Tab>(this.parentTabset.$.children(".tab-pane")[0]["__control__"]).setActive();
         }
 
         getRootTag():string {

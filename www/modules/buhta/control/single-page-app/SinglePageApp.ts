@@ -7,7 +7,7 @@ module BuhtaControl {
 
         constructor() {
             super();
-            this.template = "modules/buhta/control/single-page-app.html";
+            this.template = "modules/buhta/control/single-page-app/single-page-app.html";
         }
 
     }

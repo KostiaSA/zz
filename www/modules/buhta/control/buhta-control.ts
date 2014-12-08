@@ -19,7 +19,7 @@ module BuhtaControl {
         c.onClick = (sender:Control)=> {
             var ok=sender.find<Button>("#okButton");
             if (ok)
-            ok.text="жопа";
+            ok.text="жопа1";
             alert('click1:' + sender.$.text());
         };
     }
