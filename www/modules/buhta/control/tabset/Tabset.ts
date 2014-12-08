@@ -1,6 +1,9 @@
 /**
  * Created by Kostia on 05.12.2014.
  */
+/// <reference path="../../../../lib/lib.ts" />
+
+
 
 module BuhtaControl {
     export class Tabset extends Control {
@@ -23,6 +26,55 @@ module BuhtaControl {
                 return undefined;
 
         }
+
+        // content может быть JQuery, html-строка или путь на html-файл
+        addTab(title, content:any, id?:string, param?:any):Tab {
+
+            if (Object.isString(content)) {
+                if (/(.html)$/.test(content))
+                    content = BuhtaCore.loadHtmlAsAstring(content);
+
+                //var childScope = this.scope.$new();
+                //if (param)
+                //    for (var k in param) childScope[k] = param[k];
+                //
+                //content = this.compile(content)(childScope);
+            }
+
+            if (id && this.getTabById(id))
+                throw "Tabset.addTab(): уже есть tab c id='" + id + "'";
+
+            var tabId = id;
+            if (!title) title = "tab?";
+
+            var closableStr:string = "";
+            if (this.sourceJ.attr("closable") == "")
+                closableStr = "<div type='button' class='close closeTab mlm' onclick='$(this).parents(\"ul\")[0][\"__control__\"].getTabById($(this).parents(\"li\").attr(\"id\")).remove()'> x </div>";
+            var li = $("<li zz-type='tab'><a href='#'>" + closableStr + "</a></li>").appendTo(this.tabsUl);
+            li.addClass("active");
+            li.find("a").append($("<span>" + title + "</span>"));
+            li.find("a").click((eventObject:JQueryEventObject) => {
+                var a = $(eventObject.delegateTarget);
+                <Tabset>(a.parents("ul")[0]["__control__"]).getTabById(a.parent().attr("id")).setActive();
+            });
+
+            if (tabId) {
+                li.attr("id", tabId);
+            }
+
+            var el=new Tab();
+            el.sourceJ=$(content).addClass("tab-pane");
+            if (tabId) {
+                el.sourceJ.attr("id", tabId);
+            }
+            el.renderTo(this.$);
+            el.parentTabset = this;
+            el.setActive();
+
+            return this.getTabById(tabId);
+
+        }
+
 
         renderTo(domJ:JQuery) {
             this.beforeRender();
@@ -48,8 +100,8 @@ module BuhtaControl {
                         li.addClass("active");
                     }
                     li.find("a").append($("<span>" + title + "</span>"));
-                    li.find("a").click((eventObject: JQueryEventObject) => {
-                        var a=$(eventObject.delegateTarget);
+                    li.find("a").click((eventObject:JQueryEventObject) => {
+                        var a = $(eventObject.delegateTarget);
                         <Tabset>(a.parents("ul")[0]["__control__"]).getTabById(a.parent().attr("id")).setActive();
                     });
 
@@ -78,8 +130,8 @@ module BuhtaControl {
                     childControl = new registeredTags[childTag]();
                 childControl.sourceJ = child;
                 childControl.renderTo(content);
-                if (childTag=="tab") {
-                    (<Tab>childControl).parentTabset=this;
+                if (childTag == "tab") {
+                    (<Tab>childControl).parentTabset = this;
                     if (i == 0) {
                         childControl.$.addClass("active");
                     }

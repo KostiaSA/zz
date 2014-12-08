@@ -210,6 +210,19 @@ module BuhtaCore {
     //};
 }
 
+
+interface Object {
+    isString(s):boolean;
+    isNumber(s):boolean;
+    isBoolean(s):boolean;
+    isRegExp(s):boolean;
+    isFunction(s):boolean;
+    isDate(s):boolean;
+    isArray(s):boolean;
+    isObject(s):boolean;
+    isNaN(s):boolean;
+}
+
 interface Number {
     toSql(database?: string): string;
 }

@@ -27,4 +27,9 @@ module BuhtaControl {
         var c = new SinglePageApp();
         c.renderTo($("body"));
     }
+
+    export function testAddTab() {
+        var ts=<Tabset>($("#spatabset")[0]["__control__"]);
+        ts.addTab("new tab","<div>new11111111111</div>","new1");
+    }
 }
