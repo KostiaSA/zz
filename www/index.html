@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Buhta5</title>
+    <script src="vendors/polymer/webcomponents.min.js"></script>
     <!-- Loading core css-->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700" />
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300" />
@@ -78,10 +79,14 @@
     <script src="modules/buhta/tests/buhta-test.js"></script>
     <!--<script src="BuhtaTest/testapp.js"></script>-->
     <link rel="stylesheet" href="app.css" type="text/css" />
+
+    <link rel="import" href="vendors/polymer/polymer.html">
+    <link rel="import" href="modules/buhta/core/x/x-single-page-app/x-single-page-app.html">
 </head>
 <body style="padding:5px; margin-top:0px; border-top:solid 0px red;border-bottom:solid 0px silver">
-    Buhta no angular!<br>
-    <button onclick="BuhtaControl.testNoAngular()">Жмите уроды NoAngular !</button>
-    <button onclick="BuhtaControl.startSPA()">startSPA!</button>
+    <single-page-app>++++---+++<div>бля</div></single-page-app>
+    <!--Buhta no angular!<br>-->
+    <!--<button onclick="BuhtaControl.testNoAngular()">Жмите уроды NoAngular !</button>-->
+    <!--<button onclick="BuhtaControl.startSPA()">startSPA!</button>-->
 </body>
 </html>
