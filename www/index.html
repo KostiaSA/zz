@@ -2,31 +2,33 @@
 
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>Buhta5</title>
-    <script src="vendors/polymer/webcomponents.min.js"></script>
+    <script src="vendors/polymer/webcomponents.js"></script>
+    <!--<script src="http://www.polymer-project.org/platform.js"></script>-->
+    <link rel="import" href="vendors/polymer/polymer.html">
     <!-- Loading core css-->
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700" />
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300" />
-    <link rel="stylesheet" href="vendors/jquery-ui-1.10.4.custom/css/ui-lightness/jquery-ui-1.10.4.custom.min.css" />
-    <link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css" />
-    <!-- Loading style vendors-->       
-    <link type="text/css" rel="stylesheet" href="vendors/animate.css/animate.css" />
-    <link type="text/css" rel="stylesheet" href="vendors/jquery-pace/pace.css" />
-    <link type="text/css" rel="stylesheet" href="vendors/iCheck/skins/all.css" />
-    <link type="text/css" rel="stylesheet" href="vendors/jquery-notific8/jquery.notific8.min.css" />
-    <link type="text/css" rel="stylesheet" href="vendors/bootstrap-daterangepicker/daterangepicker-bs3.css" />
-    <link type="text/css" rel="stylesheet" href="vendors/calendar/zabuto_calendar.min.css" />
-    <link href="vendors/DataTables/media/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700"/>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300"/>
+    <link rel="stylesheet" href="vendors/jquery-ui-1.10.4.custom/css/ui-lightness/jquery-ui-1.10.4.custom.min.css"/>
+    <link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css"/>
+    <!-- Loading style vendors-->
+    <link type="text/css" rel="stylesheet" href="vendors/animate.css/animate.css"/>
+    <link type="text/css" rel="stylesheet" href="vendors/jquery-pace/pace.css"/>
+    <link type="text/css" rel="stylesheet" href="vendors/iCheck/skins/all.css"/>
+    <link type="text/css" rel="stylesheet" href="vendors/jquery-notific8/jquery.notific8.min.css"/>
+    <link type="text/css" rel="stylesheet" href="vendors/bootstrap-daterangepicker/daterangepicker-bs3.css"/>
+    <link type="text/css" rel="stylesheet" href="vendors/calendar/zabuto_calendar.min.css"/>
+    <link href="vendors/DataTables/media/css/dataTables.bootstrap.css" rel="stylesheet"/>
     <!-- Loading template style-->
-    <link type="text/css" rel="stylesheet" href="content/css/themes/style1/pink-blue.css" />
+    <link type="text/css" rel="stylesheet" href="content/css/themes/style1/pink-blue.css"/>
     <!--<link rel="stylesheet" data-ng-href="content/css/themes/{{style}}/{{theme}}.css" />-->
     <!--<link rel="stylesheet" href="css/style-responsive.css" />-->
     <!-- Loading library javascript-->
-    <link href="vendors/SlickGrid/slick.grid.css" rel="stylesheet" />
-    <link href="vendors/SlickGrid/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
-    <link href="vendors/SlickGrid/slick-default-theme.css" rel="stylesheet" />
+    <link href="vendors/SlickGrid/slick.grid.css" rel="stylesheet"/>
+    <link href="vendors/SlickGrid/jquery-ui-1.8.16.custom.css" rel="stylesheet"/>
+    <link href="vendors/SlickGrid/slick-default-theme.css" rel="stylesheet"/>
     <!--<link rel="stylesheet" href="css/style-responsive.css" />-->
     <!-- Loading library javascript-->
     <script src="vendors/jquery-1.10.2.min.js"></script>
@@ -34,7 +36,7 @@
     <script src="vendors/angular-route.js"></script>
     <!--<script src="scripts/angular-ui-router.js"></script>-->
     <!--<script src="scripts/ocLazyLoad.js"></script>-->
-    
+
     <script src="vendors/jquery-migrate-1.2.1.min.js"></script>
     <script src="vendors/jquery-ui.js"></script>
     <!-- Loading global plugin-->
@@ -78,15 +80,21 @@
     <script src="modules/buhta/control/buhta-control.js"></script>
     <script src="modules/buhta/tests/buhta-test.js"></script>
     <!--<script src="BuhtaTest/testapp.js"></script>-->
-    <link rel="stylesheet" href="app.css" type="text/css" />
+    <link rel="stylesheet" href="app.css" type="text/css"/>
 
-    <link rel="import" href="vendors/polymer/polymer.html">
     <link rel="import" href="modules/buhta/core/x/x-single-page-app/x-single-page-app.html">
+    <script>
+        //Platform.ShadowCSS.strictStyling = true;
+    </script>
 </head>
 <body style="padding:5px; margin-top:0px; border-top:solid 0px red;border-bottom:solid 0px silver">
-    <single-page-app>++++---+++<div>бля</div></single-page-app>
-    <!--Buhta no angular!<br>-->
-    <!--<button onclick="BuhtaControl.testNoAngular()">Жмите уроды NoAngular !</button>-->
-    <!--<button onclick="BuhtaControl.startSPA()">startSPA!</button>-->
+<button class="btn btn-default">btn btn-default</button>
+
+<single-page-app>++++---+++
+    <div>бля</div>
+</single-page-app>
+<!--Buhta no angular!<br>-->
+<button onclick="Platform.ShadowCSS.strictStyling;"/>Platform.ShadowCSS.strictStyling</button>-->
+<!--<button onclick="BuhtaControl.startSPA()">startSPA!</button>-->
 </body>
 </html>

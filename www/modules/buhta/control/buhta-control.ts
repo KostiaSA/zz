@@ -32,6 +32,6 @@ module BuhtaControl {
 
     export function testAddTab() {
         var ts=<Tabset>($("#spatabset")[0]["__control__"]);
-        ts.addTab("new tab","<div>new11111111111</div>","new1");
+        ts.addTab("new tab","<div>new1111111111</div>","new1");
     }
 }

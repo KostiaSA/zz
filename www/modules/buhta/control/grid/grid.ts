@@ -234,7 +234,7 @@ module BuhtaControl {
                 var childTag = child.prop("tagName").toLowerCase();
 
                 if (childTag == "slickgrid-placeholder") {
-                    ?
+                    var fake=1;
                 }
                 else {
                     var childControl:Control;

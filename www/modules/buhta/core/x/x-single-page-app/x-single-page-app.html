@@ -1,13 +1,19 @@
-
-<!--<link rel="import" href="../core-icon/core-icon.html">-->
-<!--<link rel="import" href="../core-icons/core-icons.html">-->
+<link rel="import" href="../x-button/x-button.html">
 
 <polymer-element name="single-page-app" attributes="src icon active">
 
     <template>
         <!--<link rel="stylesheet" href="core-icon-button.css">-->
         <!--<button class="btn" src="{{src}}" icon="{{icon}}"></button><content>????</content>-->
+        <link rel="stylesheet" href="/vendors/bootstrap/css/bootstrap.min.css"/>
+        <style>
+            :host {
+                color: red;
+            }
+        </style>
         <div>Это polymer SPA !</div>
+        <button class="btn btn-default">btn btn-default </button>
+        <x-button>это x-but!</x-button>
         <h2><content></content></h2>
     </template>
 
